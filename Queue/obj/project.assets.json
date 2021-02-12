@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kabrina\\Documents\\SPRING 2021\\Data Structures\\Module 4\\Queue\\Queue\\Queue.csproj",
-      "projectName": "Queue",
-      "projectPath": "C:\\Users\\Kabrina\\Documents\\SPRING 2021\\Data Structures\\Module 4\\Queue\\Queue\\Queue.csproj",
+      "projectUniqueName": "C:\\Users\\Kabrina\\Documents\\GitHub Repos\\Queue\\Queue\\QueueLab.csproj",
+      "projectName": "QueueLab",
+      "projectPath": "C:\\Users\\Kabrina\\Documents\\GitHub Repos\\Queue\\Queue\\QueueLab.csproj",
       "packagesPath": "C:\\Users\\Kabrina\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kabrina\\Documents\\SPRING 2021\\Data Structures\\Module 4\\Queue\\Queue\\obj\\",
+      "outputPath": "C:\\Users\\Kabrina\\Documents\\GitHub Repos\\Queue\\Queue\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
