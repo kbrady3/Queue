@@ -6,7 +6,12 @@ namespace QueueLab
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            queue q = new queue();
+            q.enqueue("Hello world");
+            q.enqueue("Hi");
+            string d = q.dequeue();
+            Console.WriteLine(q.printQueue());
+            Console.WriteLine(d);
         }
     }
 }
