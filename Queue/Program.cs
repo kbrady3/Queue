@@ -6,12 +6,15 @@ namespace QueueLab
     {
         static void Main(string[] args)
         {
-            queue q = new queue();
-            q.enqueue("Hello world");
-            q.enqueue("Hi");
-            string d = q.dequeue();
-            Console.WriteLine(q.printQueue());
-            Console.WriteLine(d);
+            // ARRANGE
+            QueueLab.queue myQueue = new QueueLab.queue(2);
+            String item = "queueItem";
+            String actual, expected;
+            expected = "queueItem1";
+            // ACT
+            myQueue.enqueue(item + "1");
+            myQueue.enqueue(item + "2");
+            actual = myQueue.peek();
         }
     }
 }

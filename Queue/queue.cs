@@ -8,8 +8,8 @@ namespace QueueLab
     public class queue
     {
         // Members
-        private int head;    // The top of the queue
-        private int tail;    // The bottom of the queue
+        private int head;    // The index of item at the top of the queue
+        private int tail;    // The index of item at the bottom of the queue
         private int queueSize;    // The number of items in the queue
         private int maxSize; // The max number of items the queue can contain
         private string[] stackItems;
@@ -73,23 +73,21 @@ namespace QueueLab
 
         public string peek()
         {
-            string item = null;
-            // TODO
-            return item; // Possibly you will remove this line, this is for running Unit Tests before writing code 
+            string currentItem = stackItems[head];
+            return currentItem;
         }
 
         public int setHead()
         {
-            for (int i = 0; i < stackItems.Length; i++)
+            if(stackItems[0] == null)
             {
-                if (string.IsNullOrEmpty(stackItems[i]))
-                {
-                    //Gets the index of the last not null value
-                    head = i - 1;
-                    break;
-                }
+                head = -1;
             }
-
+            else
+            {
+                head = stackItems.Length - 1;
+            }
+            
             return head;
         }
 
@@ -115,52 +113,71 @@ namespace QueueLab
         {
             setHead();
 
-            string itemAtHead = stackItems[head];
-            stackItems[head] = null;
-            return itemAtHead; //Return item that was dequeued
+            if(stackItems[0] == null)
+            {
+                throw new queueEmptyException();
+            }
+            else
+            {
+                string itemAtHead = stackItems[head];
+                stackItems[head] = null;
+                return itemAtHead; //Return item that was dequeued
+            }
         }
 
 
         public void enqueue(string item)
         {
             setQueueSize();
+            setHead();
 
-            string[] tempString = new string[queueSize];
-
-            if(stackItems[0] == null)
+            if (head == maxSize - 1 && stackItems[head] != null)
             {
-                stackItems[0] = item; //Enqueue the item
+                throw new queueFullException();
             }
             else
             {
-                for (int i = 0; i < queueSize; i++)
-                {
-                    string currentItem = stackItems[i]; //Gets current item from stackItems
+                string[] tempString = new string[queueSize];
 
-                    if (i == queueSize - 1) //Ensures it won't try to go past the max size when it adds 1 to the index
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        tempString[i + 1] = currentItem; //Copies currentItem to tempString, one position higher than it was in stackItems
-                    }
+                if (stackItems[0] == null)
+                {
+                    stackItems[0] = item; //Enqueue the item
                 }
-
-                stackItems[0] = item; //Enqueue the item
-
-                for (int i = 0; i < tempString.Length; i++)
+                else
                 {
-                    if (i == tempString.Length - 1) //Ensures it won't try to go past the max size when it adds 1 to the index
+                    for (int i = 0; i < stackItems.Length; i++)
                     {
-                        break;
+                        if (stackItems[i] != null)
+                        {
+                            string currentItem = stackItems[i]; //Gets current item from stackItems
+
+                            if (i == stackItems.Length - 1) //Ensures it won't try to go past the max size when it adds 1 to the index
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                tempString[i + 1] = currentItem; //Copies currentItem to tempString, one position higher than it was in stackItems
+                            }
+                        }
                     }
-                    else
+
+                    stackItems[0] = item; //Enqueue the item
+
+                    for (int i = 0; i < tempString.Length; i++)
                     {
-                        stackItems[i + 1] = tempString[i]; //Move items up one index
+                        if (i == tempString.Length - 1) //Ensures it won't try to go past the max size when it adds 1 to the index
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            stackItems[i + 1] = tempString[i]; //Move items up one index
+                        }
                     }
                 }
             }
+            
         }
 
         public string printQueue() 
