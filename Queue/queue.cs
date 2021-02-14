@@ -125,59 +125,27 @@ namespace QueueLab
             }
         }
 
-
         public void enqueue(string item)
         {
-            setQueueSize();
-            setHead();
-
-            if (head == maxSize - 1 && stackItems[head] != null)
+            if(stackItems[0] == null)
             {
-                throw new queueFullException();
+                stackItems[0] = item;
+            }
+            else if(stackItems[maxSize - 1] == null) //Checks if the last slot in the array is empty
+            {
+                string[] tempArray = new string[maxSize];
+
+                //Array.Copy(originalArray, startIndex, newArray, startIndex, endIndex);
+                Array.Copy(stackItems, 0, tempArray, 1, maxSize - 1); //Copies stackItems objects into tempArray, starting at index 1
+
+                stackItems = tempArray;
+
+                stackItems[0] = item;
             }
             else
             {
-                string[] tempString = new string[queueSize];
-
-                if (stackItems[0] == null)
-                {
-                    stackItems[0] = item; //Enqueue the item
-                }
-                else
-                {
-                    for (int i = 0; i < stackItems.Length; i++)
-                    {
-                        if (stackItems[i] != null)
-                        {
-                            string currentItem = stackItems[i]; //Gets current item from stackItems
-
-                            if (i == stackItems.Length - 1) //Ensures it won't try to go past the max size when it adds 1 to the index
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                tempString[i + 1] = currentItem; //Copies currentItem to tempString, one position higher than it was in stackItems
-                            }
-                        }
-                    }
-
-                    stackItems[0] = item; //Enqueue the item
-
-                    for (int i = 0; i < tempString.Length; i++)
-                    {
-                        if (i == tempString.Length - 1) //Ensures it won't try to go past the max size when it adds 1 to the index
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            stackItems[i + 1] = tempString[i]; //Move items up one index
-                        }
-                    }
-                }
+                throw new queueFullException();
             }
-            
         }
 
         public string printQueue() 
