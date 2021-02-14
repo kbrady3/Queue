@@ -1,4 +1,22 @@
-﻿using System;
+﻿/**************************************************************
+* Name        : QueueLab
+* Author      : Kabrina Brady
+* Created     : 2/14/2021
+* Course      : Data Structures
+* Version     : 1.0
+* OS          : Windows XX
+* Copyright   : This is my own original work based on
+*               specifications issued by our instructor
+* Description : This program overall description here
+*               Input:  list and describe
+*               Output: list and describe
+* Academic Honesty: I attest that this is my original work.
+* I have not used unauthorized source code, either modified or 
+* unmodified. I have not given other fellow student(s) access to
+* my program.         
+***************************************************************/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -73,41 +91,22 @@ namespace QueueLab
 
         public string peek()
         {
+            setHead();
             string currentItem = stackItems[head];
+
+            if(currentItem == null)
+            {
+                throw new queueEmptyException();
+            }
+
             return currentItem;
         }
 
         public int setHead()
         {
-            if(stackItems[0] == null)
-            {
-                head = -1;
-            }
-            else
-            {
-                head = stackItems.Length - 1;
-            }
-            
+            head = maxSize - 1;
             return head;
         }
-
-        public int setQueueSize()
-        {
-            int nullCounter = 0;
-
-            for (int i = 0; i < stackItems.Length; i++)
-            {
-                if (string.IsNullOrEmpty(stackItems[i]))
-                {
-                    nullCounter++;
-                }
-            }
-
-            queueSize = maxSize - nullCounter; 
-
-            return queueSize;
-        }
-
 
         public string dequeue()
         {
@@ -158,7 +157,7 @@ namespace QueueLab
             }
             else
             {
-                for (int i = 0; i < stackItems.Length; i++)
+                for (int i = maxSize - 1; i >= 0; i--)
                 {
                     //Prints each item on a new line
                     stackString += stackItems[i] + "\n";
